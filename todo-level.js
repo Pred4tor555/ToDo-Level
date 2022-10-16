@@ -1,5 +1,6 @@
 func () {
-    var chbox = document.getElementById('one');
+    var chbox;
+    chbox = document.getElementById('one');
 
     if (chbox.checked) {
         alert('Выбрано');
