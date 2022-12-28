@@ -2,32 +2,39 @@
     require 'configDB.php';
 
     $data = $_POST;
-    if( isset($data['do_signup']) )
+    if( isset($data["do_signup"]) )
     {
 
         $errors = array();
-        if( trim($data['login']) == '' )
+        if( trim($data["login"]) == '' )
         {
             $errors[] = 'Введите логин!';
         }
 
-        if( trim($data['email']) == '' )
+        if( trim($data["email"]) == '' )
         {
             $errors[] = 'Введите Email!';
         }
 
-        if( $data['password'] == '' )
+        if( $data["password"] == '' )
         {
             $errors[] = 'Введите пароль!';
         }
 
-        if( $data['password_2'] != $data['password'] )
+        if( $data["password_2"] != $data["password"] )
         {
             $errors[] = 'Повторный пароль введён не верно!';
         }
 
         if( empty($errors) )
         {
+            $sql = 'INSERT INTO users( user_login, user_email, user_password ) VALUES( :login, :email, :password )';
+            $stmt = $pdo -> prepare($sql);
+            $stmt -> bindValue(':login', $data["login"]);
+            $stmt -> bindValue(':email', $data["email"]);
+            $stmt -> bindValue(':password', $data["password"]);
+            $stmt -> execute();
+            echo 'Регистрация прошла успешно';
             // Должна быть произведена регестрация пользователя в базу данных(insert, $_GET)
         } else
         {
