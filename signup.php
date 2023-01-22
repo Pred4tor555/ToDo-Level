@@ -28,14 +28,14 @@
 
         if( empty($errors) )
         {
-            $sql = 'INSERT INTO users( user_login, user_email, user_password ) VALUES( :login, :email, :password )';
+            $sql = 'INSERT INTO users( user_login, user_email, user_password  ) VALUES( :login, :email, :password )';
             $stmt = $pdo -> prepare($sql);
             $stmt -> bindValue(':login', $data["login"]);
             $stmt -> bindValue(':email', $data["email"]);
             $stmt -> bindValue(':password', $data["password"]);
             $stmt -> execute();
             echo 'Регистрация прошла успешно';
-            // Должна быть произведена регестрация пользователя в базу данных(insert, $_GET)
+            // Должна быть произведена регестрация пользователя в базу данных
         } else
         {
             echo '<div style="color: rgba(255,0,0,0.78);">' .array_shift($errors).'</div><hr>';
